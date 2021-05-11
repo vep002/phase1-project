@@ -9,7 +9,7 @@ let formDirector = document.querySelector('input#director')
 let formYear = document.querySelector('input#year')
 let formGenre = document.querySelector('input#genre')
 let formReview = document.querySelector('input#review')
-let dropDown = document.querySelector()
+// let dropDown = document.querySelector()
 
 
 //Get movies from database
