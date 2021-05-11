@@ -5,17 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class='movies-list' id='list'></div>
 
     <form>
         <label for=“title”>Title:</label><br>
-        <input type="text" id=“title” name=“title”><br>
+        <input type="text" id=title name=“title”><br>
         <label for=“director”>Director:</label><br>
-        <input type="text" id=“director” name=“director”>
+        <input type="text" id=director name=“director”>
+        <input type='text' id=year name="year"><br>
+        <label for="year">Year:</label><br>
+        <input type='text' id=genre name="genre"><br>
+        <label for="genre">Genre:</label><br>
+        <input type='text' id=review name="review"><br>
+        <label for="review">Review:</label><br>
         <input type="submit">
       </form>
+
+      <div class="dropdown">
+        <button class="dropbtn">Genre</button>
+        <div class="dropdown-content">
+          <a href="#">horror</a>
+          <a href="#">drama</a>
+          <a href="#">action</a>
+          <a href="#">comedy</a>
+        </div>
+      </div>  
 </body>
 <script defer src="index.js"></script>
 </html>
