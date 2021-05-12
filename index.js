@@ -10,11 +10,13 @@ let movieForm = document.querySelector('form')
     let formGenre = movieForm.querySelector('input#genre')
     let formReview = movieForm.querySelector('input#review')
 let dropDown = document.querySelector('div.dropdown')
-const genreSelect = document.querySelector('select#genre');
+let genreSelect = document.querySelector('select#genre');
     let horror = genreSelect.querySelector('option.genre1')
     let drama = genreSelect.querySelector('option.genre2')
     let action = genreSelect.querySelector('option.genre3')
     let comedy = genreSelect.querySelector('option.genre4')
+let filteredMoviesList = document.querySelector('div#new-list.filtered-movies-list')
+
     // let dropDownContent = dropDown.querySelector('div.dropdown-content')
 
 
@@ -23,7 +25,7 @@ const genreSelect = document.querySelector('select#genre');
 function getMovies() {
     fetch('http://localhost:3000/movies')
     .then(resp => resp.json())
-    .then((moviesArray)=> {displayMovies(moviesArray), filterMovies(moviesArray)
+    .then((moviesArray)=> {displayMovies(moviesArray)
     
     })
     
@@ -54,7 +56,8 @@ moviesArray.forEach(movieObj => {
     
     let movieGenre = document.createElement ('p')
     movieSpan.append(movieGenre)
-    movieGenre.innerText = movieObj.genre 
+    movieGenre.innerText = movieObj.genre
+    filterMovies(moviesArray)
 
     // let moviePoster = document.createElement('img')
     // movieSpan.append(moviePoster)
@@ -71,9 +74,9 @@ moviesArray.forEach(movieObj => {
     let movieReview = document.createElement('p')
     movieSpan.append(movieReview)
     movieReview.innerText = movieObj.review
+    
 });
 
-    //movieDetails(moviesArray)
     
 
 }
@@ -116,33 +119,35 @@ movieForm.addEventListener('submit', (e) => {
 function filterMovies(moviesArray) {
     genreSelect.onchange = function(e) {
         console.log('hi')
-        debugger;
-            moviesArray.filter(function(movie){
-                if (movie.genre !== "drama"){
-                    ////remove their parent from the DOM
-                console.log(hi)
+      let  allMovies = document.querySelector("div#list.movies-list")
+      allMovies.remove()
+        
+      moviesArray.filter(function(movieObj) {
+           if (movieObj.genre === genreSelect.value){
+               console.log('hello!')
+            //    debugger;
+            let movieSpan = document.createElement('span')
+            filteredMoviesList.append(movieSpan)
 
-                if (e.target.value === "genre2"){
-                    moviesArray.filter()
-                }
-                if (e.target.value === "genre3"){
-                    moviesArray.filter()
-                }
-                if (e.target.value === "genre4"){
-                    moviesArray.filter()
-                }
-            }
+            let movieTitle = document.createElement('h1')
+             movieSpan.append(movieTitle)
+             movieTitle.innerText = movieObj.title
+             let movieDirector=document.createElement('p')
+                movieSpan.append(movieDirector)
+                movieDirector.innerText=movieObj.director
+
+                let movieYear= document.createElement('p')
+                movieSpan.append(movieYear)
+                movieYear.innerText = movieObj.year 
+                
+                let movieGenre = document.createElement ('p')
+                movieSpan.append(movieGenre)
+                movieGenre.innerText = movieObj.genre
+
+                let movieReview = document.createElement('p')
+                movieSpan.append(movieReview)
+                movieReview.innerText = movieObj.review
+           }
         })
     }
 }
-
-    
-// }
-
- // genre.addEventListener("change", (e) => {
-    //     debugger;
-    //         console.log('Change');
-    //         console.log(`e.target.value = ${ e.target.value }`)
-        // moviesArray.filter(movieObj => movieObj.genre == dropDownContent.value)
-
-            //moviesArray
