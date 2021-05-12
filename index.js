@@ -4,12 +4,18 @@
 //GLOBAL STUFF
 let moviesList = document.querySelector('div#list')
 let movieForm = document.querySelector('form')
-let formTitle = document.querySelector('input#title')
-let formDirector = document.querySelector('input#director')
-let formYear = document.querySelector('input#year')
-let formGenre = document.querySelector('input#genre')
-let formReview = document.querySelector('input#review')
-// let dropDown = document.querySelector()
+    let formTitle = movieForm.querySelector('input#title')
+    let formDirector = movieForm.querySelector('input#director')
+    let formYear = movieForm.querySelector('input#year')
+    let formGenre = movieForm.querySelector('input#genre')
+    let formReview = movieForm.querySelector('input#review')
+let dropDown = document.querySelector('div.dropdown')
+const genreSelect = document.querySelector('select#genre');
+    let horror = genreSelect.querySelector('option.genre1')
+    let drama = genreSelect.querySelector('option.genre2')
+    let action = genreSelect.querySelector('option.genre3')
+    let comedy = genreSelect.querySelector('option.genre4')
+    // let dropDownContent = dropDown.querySelector('div.dropdown-content')
 
 
 //Get movies from database
@@ -18,12 +24,14 @@ function getMovies() {
     fetch('http://localhost:3000/movies')
     .then(resp => resp.json())
     .then((moviesArray)=> {displayMovies(moviesArray)})
+    
 submitNewMovie()
+
 }
 
 //function to display movies to the DOM
 function displayMovies (moviesArray) {
-moviesArray.forEach(element => {
+moviesArray.forEach(movieObj => {
     //create a span element for each movie, which is appended to the overall movie div
     let movieSpan = document.createElement('span')
     moviesList.append(movieSpan)
@@ -31,20 +39,20 @@ moviesArray.forEach(element => {
     //create elements for each movie detail
     let movieTitle = document.createElement('h1')
     movieSpan.append(movieTitle)
-    movieTitle.innerText = element.title
+    movieTitle.innerText = movieObj.title
     
 
     let movieDirector=document.createElement('p')
     movieSpan.append(movieDirector)
-    movieDirector.innerText=element.director
+    movieDirector.innerText=movieObj.director
 
     let movieYear= document.createElement('p')
     movieSpan.append(movieYear)
-    movieYear.innerText = element.year 
+    movieYear.innerText = movieObj.year 
     
     let movieGenre = document.createElement ('p')
     movieSpan.append(movieGenre)
-    movieGenre.innerText = element.genre 
+    movieGenre.innerText = movieObj.genre 
 
     // let moviePoster = document.createElement('img')
     // movieSpan.append(moviePoster)
@@ -60,12 +68,15 @@ moviesArray.forEach(element => {
 
     let movieReview = document.createElement('p')
     movieSpan.append(movieReview)
-    movieReview.innerText = element.review
+    movieReview.innerText = movieObj.review
+});
 
     //movieDetails(moviesArray)
-});
+    
+
 }
 getMovies()
+// filterMovies()
 //fill in movie details
 //function movieDetails (moviesArray, element, movieTitle) {}
     
@@ -100,3 +111,29 @@ movieForm.addEventListener('submit', (e) => {
 })
 }
 
+// function filterMovies() {
+    genreSelect.onchange = function(e) {
+        console.log('hi')
+        debugger;
+        if (e.target.value === "genre1"){
+            moviesArray.filter()
+        }
+        if (e.target.value === "genre2"){
+            moviesArray.filter()
+        }
+        if (e.target.value === "genre3"){
+            moviesArray.filter()
+        }
+        if (e.target.value === "genre4"){
+            moviesArray.filter()
+        }
+        
+    // genre.addEventListener("change", (e) => {
+    //     debugger;
+    //         console.log('Change');
+    //         console.log(`e.target.value = ${ e.target.value }`)
+        // moviesArray.filter(movieObj => movieObj.genre == dropDownContent.value)
+
+            //moviesArray
+    }
+// }
