@@ -23,7 +23,9 @@ const genreSelect = document.querySelector('select#genre');
 function getMovies() {
     fetch('http://localhost:3000/movies')
     .then(resp => resp.json())
-    .then((moviesArray)=> {displayMovies(moviesArray)})
+    .then((moviesArray)=> {displayMovies(moviesArray), filterMovies(moviesArray)
+    
+    })
     
 submitNewMovie()
 
@@ -111,29 +113,36 @@ movieForm.addEventListener('submit', (e) => {
 })
 }
 
-// function filterMovies() {
+function filterMovies(moviesArray) {
     genreSelect.onchange = function(e) {
         console.log('hi')
         debugger;
-        if (e.target.value === "genre1"){
-            moviesArray.filter()
-        }
-        if (e.target.value === "genre2"){
-            moviesArray.filter()
-        }
-        if (e.target.value === "genre3"){
-            moviesArray.filter()
-        }
-        if (e.target.value === "genre4"){
-            moviesArray.filter()
-        }
-        
-    // genre.addEventListener("change", (e) => {
+            moviesArray.filter(function(movie){
+                if (movie.genre !== "drama"){
+                    ////remove their parent from the DOM
+                console.log(hi)
+
+                if (e.target.value === "genre2"){
+                    moviesArray.filter()
+                }
+                if (e.target.value === "genre3"){
+                    moviesArray.filter()
+                }
+                if (e.target.value === "genre4"){
+                    moviesArray.filter()
+                }
+            }
+        })
+    }
+}
+
+    
+// }
+
+ // genre.addEventListener("change", (e) => {
     //     debugger;
     //         console.log('Change');
     //         console.log(`e.target.value = ${ e.target.value }`)
         // moviesArray.filter(movieObj => movieObj.genre == dropDownContent.value)
 
             //moviesArray
-    }
-// }
