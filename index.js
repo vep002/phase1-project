@@ -68,6 +68,12 @@ moviesArray.forEach(movieObj => {
     movieSpan.append(movieReview)
     movieReview.innerText = `Review: ${movieObj.review}`
 
+    let deleteButton = document.createElement('button')
+    movieSpan.append(deleteButton)
+    deleteButton.innerText = "Delete"
+    deleteButton.id = movieObj.id
+    deleteMovie(deleteButton)
+
     //movieDetails(moviesArray)
 });
 
@@ -184,4 +190,14 @@ function filterMovies(moviesArray) {
            }
         })
     }
+}
+function deleteMovie(deleteButton) {
+    deleteButton.addEventListener('click', (e) => {
+        fetch(`http://localhost:3000/movies/${e.target.id}`, {
+  method: "DELETE",
+})
+  .then((r) => r.json())
+  
+
+    })
 }

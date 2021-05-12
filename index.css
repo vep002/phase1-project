@@ -44,17 +44,17 @@
 
   /*styling for movie span elements*/
 
-  /* div#list.movies-list span {
+  div#list.movies-list span {
     display: block;
     padding: 10px;
     border: 10px;
     border-color: black;
     margin: 10px;
-  } */
+  } 
 
   /*sizing thumbnails:*/
 
-  /* div#list.movies-list span img {
+  div#list.movies-list span img {
     height: 300px;
-    width: 200px; */
-  /* } */
+    width: 200px; 
+  }
