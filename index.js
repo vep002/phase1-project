@@ -118,13 +118,13 @@ movieForm.addEventListener('submit', (e) => {
 
 function filterMovies(moviesArray) {
     genreSelect.onchange = function(e) {
-        console.log('hi')
+        // console.log('hi')
       let  allMovies = document.querySelector("div#list.movies-list")
       allMovies.remove()
         
       moviesArray.filter(function(movieObj) {
            if (movieObj.genre === genreSelect.value){
-               console.log('hello!')
+            //    console.log('hello!')
             //    debugger;
             let movieSpan = document.createElement('span')
             filteredMoviesList.append(movieSpan)
