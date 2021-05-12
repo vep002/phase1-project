@@ -39,3 +39,20 @@
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+  /*styling for movie span elements*/
+
+  /* div#list.movies-list span {
+    display: block;
+    padding: 10px;
+    border: 10px;
+    border-color: black;
+    margin: 10px;
+  } */
+
+  /*sizing thumbnails:*/
+
+  div#list.movies-list span img {
+    height: 300px;
+    width: 200px;
+  }
