@@ -41,16 +41,7 @@ moviesArray.forEach(movieObj => {
 
     let movieDirector=document.createElement('p')
     movieSpan.append(movieDirector)
-    movieDirector.innerText= `Director: ${element.director}`
-
-    let movieYear= document.createElement('p')
-    movieSpan.append(movieYear)
-    movieYear.innerText = `Year Released: ${element.year}` 
-    
-    let movieGenre = document.createElement ('p')
-    movieSpan.append(movieGenre)
-    movieGenre.innerText = `Genre: ${element.genre}` 
-    movieDirector.innerText=movieObj.director
+    movieDirector.innerText= `Director: ${movieObj.director}`
 
     let movieYear= document.createElement('p')
     movieSpan.append(movieYear)
@@ -63,7 +54,7 @@ moviesArray.forEach(movieObj => {
 
     let moviePoster = document.createElement('img')
     movieSpan.append(moviePoster)
-    moviePoster.src = element.thumbnail
+    moviePoster.src = movieObj.thumbnail
 
     // let movieTrailer = document.createElement('iframe')
     // movieSpan.append(movieTrailer)
@@ -75,7 +66,7 @@ moviesArray.forEach(movieObj => {
 
     let movieReview = document.createElement('p')
     movieSpan.append(movieReview)
-    movieReview.innerText = `Review: ${element.review}`
+    movieReview.innerText = `Review: ${movieObj.review}`
 
     //movieDetails(moviesArray)
 });
