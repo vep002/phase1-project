@@ -71,6 +71,16 @@ function movieDetails(moviesArray, movieObj){
     movieSpan.append(movieReview)
     movieReview.innerText = `Review: ${movieObj.review}`
 
+    let ratingInputForm = document.createElement("input");
+    ratingInputForm.setAttribute("type", "text")
+    // let ratingInputFormLabel = document.createElement('label')
+    // ratingInputFormLabel.type = 'text'
+    // ratingInputFormLabel.innerText = 'rating'
+    movieReview.appendChild(ratingInputForm)
+    // ratingInputForm.append(ratingInputFormLabel)
+    // debugger
+   
+
     let deleteButton = document.createElement('button')
     movieSpan.append(deleteButton)
     deleteButton.innerText = "Delete"
@@ -173,47 +183,6 @@ function deleteFilteredMovie(deleteButton) {
     })
 }
 
+function rateMovie(){
 
-
-
-// debugger
-                // //create a span element for each movie, which is appended to the overall movie div
-                // let newMovieSpan = document.createElement('span')
-                // moviesList.append(newMovieSpan)
-            
-                // //create elements for each movie detail
-                // let newMovieTitle = document.createElement('h1')
-                // newMovieSpan.append(newMovieTitle)
-                // newMovieTitle.innerText = element.title
-                
-            
-                // let newMovieDirector=document.createElement('p')
-                // newMovieSpan.append(newMovieDirector)
-                // newMovieDirector.innerText= `Director: ${element.director}`
-            
-                // let newMovieYear= document.createElement('p')
-                // newMovieSpan.append(newMovieYear)
-                // newMovieYear.innerText = `Year Released: ${element.year}` 
-                
-                // let newMovieGenre = document.createElement ('p')
-                // newMovieSpan.append(newMovieGenre)
-                // newMovieGenre.innerText = `Genre: ${element.genre}` 
-            
-                // // let newMoviePoster = document.createElement('img')
-                // // newMovieSpan.append(newMoviePoster)
-                // // newMoviePoster.src = element.thumbnail
-            
-                // // let newMovieTrailer = document.createElement('iframe')
-                // // newMovieSpan.append(newMovieTrailer)
-                // // newMovieTrailer.src = element.preview
-            
-                // // let newMovieRating = document.createElement('p')
-                // // newMovieSpan.append(newMovieRating)
-                // // newMovieRating.innerText = element.rating 
-            
-                // let newMovieReview = document.createElement('p')
-                // newMovieSpan.append(newMovieReview)
-                // newMovieReview.innerText = `Review: ${element.review}`;
-//         })
-//     })
- 
+}
