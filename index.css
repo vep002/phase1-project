@@ -58,3 +58,20 @@
     height: 300px;
     width: 200px; 
   }
+
+    /*styling for movie span elements*/
+
+    div#new-list.filtered-movies-list span {
+      display: block;
+      padding: 10px;
+      border: 10px;
+      border-color: black;
+      margin: 10px;
+    } 
+  
+    /*sizing thumbnails:*/
+  
+    div#new-list.filtered-movies-list span img {
+      height: 300px;
+      width: 200px; 
+    }

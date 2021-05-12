@@ -167,6 +167,7 @@ function filterMovies(moviesArray) {
             //    console.log('hello!')
             //    debugger;
             let movieSpan = document.createElement('span')
+            movieSpan.id = movieObj.id
             filteredMoviesList.append(movieSpan)
 
             let movieTitle = document.createElement('h1')
@@ -187,6 +188,16 @@ function filterMovies(moviesArray) {
                 let movieReview = document.createElement('p')
                 movieSpan.append(movieReview)
                 movieReview.innerText = movieObj.review
+               
+                let moviePoster = document.createElement('img')
+                movieSpan.append(moviePoster)
+                moviePoster.src = movieObj.thumbnail
+
+                let deleteButton = document.createElement('button')
+                movieSpan.append(deleteButton)
+                deleteButton.innerText = "Delete"
+                deleteButton.id = movieObj.id
+                deleteFilteredMovie(deleteButton)
            }
         })
     }
@@ -199,5 +210,11 @@ function deleteMovie(deleteButton) {
   .then((r) => r.json())
   
 
+    })
+}
+function deleteFilteredMovie(deleteButton) {
+    deleteButton.addEventListener('click',(e) => {
+        let newSPan = document.querySelector('div#new-list.filtered-movies-list span')
+        newSPan.remove()
     })
 }
