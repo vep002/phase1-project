@@ -2,13 +2,20 @@
 //GLOBAL STUFF
 let moviesList = document.querySelector('div#list')
 let movieForm = document.querySelector('form')
-let formTitle = document.querySelector('input#title')
-let formDirector = document.querySelector('input#director')
-let formYear = document.querySelector('input#year')
-let formGenre = document.querySelector('input#genre')
-let formReview = document.querySelector('input#review')
-let formPoster = document.queryCommandEnabled('input#poster')
-//let dropDown = document.querySelector()
+    let formTitle = movieForm.querySelector('input#title')
+    let formDirector = movieForm.querySelector('input#director')
+    let formYear = movieForm.querySelector('input#year')
+    let formGenre = movieForm.querySelector('input#genre')
+    let formReview = movieForm.querySelector('input#review')
+let dropDown = document.querySelector('div.dropdown')
+let genreSelect = document.querySelector('select#genre');
+    let horror = genreSelect.querySelector('option.genre1')
+    let drama = genreSelect.querySelector('option.genre2')
+    let action = genreSelect.querySelector('option.genre3')
+    let comedy = genreSelect.querySelector('option.genre4')
+let filteredMoviesList = document.querySelector('div#new-list.filtered-movies-list')
+
+    // let dropDownContent = dropDown.querySelector('div.dropdown-content')
 
 
 //Get movies from database
@@ -21,7 +28,7 @@ function getMovies() {
 
 //function to display movies to the DOM
 function displayMovies (moviesArray) {
-moviesArray.forEach(element => {
+moviesArray.forEach(movieObj => {
     //create a span element for each movie, which is appended to the overall movie div
     let movieSpan = document.createElement('span')
     moviesList.append(movieSpan)
@@ -29,7 +36,7 @@ moviesArray.forEach(element => {
     //create elements for each movie detail
     let movieTitle = document.createElement('h1')
     movieSpan.append(movieTitle)
-    movieTitle.innerText = element.title
+    movieTitle.innerText = movieObj.title
     
 
     let movieDirector=document.createElement('p')
@@ -43,6 +50,16 @@ moviesArray.forEach(element => {
     let movieGenre = document.createElement ('p')
     movieSpan.append(movieGenre)
     movieGenre.innerText = `Genre: ${element.genre}` 
+    movieDirector.innerText=movieObj.director
+
+    let movieYear= document.createElement('p')
+    movieSpan.append(movieYear)
+    movieYear.innerText = movieObj.year 
+    
+    let movieGenre = document.createElement ('p')
+    movieSpan.append(movieGenre)
+    movieGenre.innerText = movieObj.genre
+    filterMovies(moviesArray)
 
     let moviePoster = document.createElement('img')
     movieSpan.append(moviePoster)
@@ -62,6 +79,9 @@ moviesArray.forEach(element => {
 
     //movieDetails(moviesArray)
 });
+
+    
+
 }
 getMovies()
 submitNewMovie()
@@ -138,3 +158,39 @@ function submitNewMovie () {
     
     })
     })}
+
+function filterMovies(moviesArray) {
+    genreSelect.onchange = function(e) {
+        // console.log('hi')
+      let  allMovies = document.querySelector("div#list.movies-list")
+      allMovies.remove()
+        
+      moviesArray.filter(function(movieObj) {
+           if (movieObj.genre === genreSelect.value){
+            //    console.log('hello!')
+            //    debugger;
+            let movieSpan = document.createElement('span')
+            filteredMoviesList.append(movieSpan)
+
+            let movieTitle = document.createElement('h1')
+             movieSpan.append(movieTitle)
+             movieTitle.innerText = movieObj.title
+             let movieDirector=document.createElement('p')
+                movieSpan.append(movieDirector)
+                movieDirector.innerText=movieObj.director
+
+                let movieYear= document.createElement('p')
+                movieSpan.append(movieYear)
+                movieYear.innerText = movieObj.year 
+                
+                let movieGenre = document.createElement ('p')
+                movieSpan.append(movieGenre)
+                movieGenre.innerText = movieObj.genre
+
+                let movieReview = document.createElement('p')
+                movieSpan.append(movieReview)
+                movieReview.innerText = movieObj.review
+           }
+        })
+    }
+}
