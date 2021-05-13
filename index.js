@@ -6,13 +6,14 @@ let movieForm = document.querySelector('form')
     let formYear = movieForm.querySelector('input#year')
     let formGenre = movieForm.querySelector('input#genre')
     let formReview = movieForm.querySelector('input#review')
-// let dropDown = document.querySelector('div.dropdown')
-// let genreSelect = document.querySelector('select#genre');
-//     let horror = genreSelect.querySelector('option.genre1')
-//     let drama = genreSelect.querySelector('option.genre2')
-//     let action = genreSelect.querySelector('option.genre3')
-//     let comedy = genreSelect.querySelector('option.genre4')
-// let filteredMoviesList = document.querySelector('div#new-list.filtered-movies-list')
+let dropDown = document.querySelector('div.dropdown')
+let genreSelect = document.querySelector('select#genre');
+    let horror = genreSelect.querySelector('option.genre1')
+    let drama = genreSelect.querySelector('option.genre2')
+    let action = genreSelect.querySelector('option.genre3')
+    let comedy = genreSelect.querySelector('option.genre4')
+let filteredMoviesList = document.querySelector('div#new-list.filtered-movies-list')
+
 
 ////////GLOBAL FUNCTION CALLS
 getMovies()
@@ -56,38 +57,38 @@ function movieDetails(moviesArray, movieObj){
     let movieGenre = document.createElement ('p')
     movieSpan.append(movieGenre)
     movieGenre.innerText = movieObj.genre
-    //filterMovies(moviesArray)
+    filterMovies(moviesArray)
 
     let moviePoster = document.createElement('img')
     movieSpan.append(moviePoster)
     moviePoster.src = movieObj.thumbnail
 
-
-    function getVideos (moviesArray,movieObj) {
-        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=AIzaSyCzx-q6vR_ioYRkaHPmcQjWFNsEEFxfXx4`)
-        .then(resp => resp.json())
-        .then ((resp)=> {
-            let videoId = resp.items[0].id.videoId
-            let movieTrailer = document.createElement('iframe')
-            movieTrailer.src=`https://www.youtube.com/embed/${videoId}`
-            movieSpan.append(movieTrailer)
-            // let example = document.createElement('iframe')
-            // example.src = 
-            // moviesList.append(example)
-        })
-        }
-        getVideos(moviesArray, movieObj)
+    // function getVideos (moviesArray, movieObj) {
+    //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=AIzaSyCzx-q6vR_ioYRkaHPmcQjWFNsEEFxfXx4`)
+    //     .then(resp => resp.json())
+    //     .then ((resp)=> {
+            
+    //         let videoId = resp.items[0].id.videoId
+            
+    //         let movieTrailer = document.createElement('iframe')
+    //         movieTrailer.src=`https://www.youtube.com/embed/${videoId}`
+    //         movieSpan.append(movieTrailer)
+           
+    //     })
+    //     }
     
-    // let movieRating = document.createElement('p')
-    // movieSpan.append(movieRating)
-    // movieRating.innerText = element.rating 
+        // getVideos(moviesArray, movieObj)
+    
+    let movieRating = document.createElement('p')
+    movieSpan.append(movieRating)
+    movieRating.innerText = movieObj.rating 
 
 
     let deleteButton = document.createElement('button')
     movieSpan.append(deleteButton)
     deleteButton.innerText = "Delete"
     deleteButton.id = movieObj.id
-    //deleteMovie(deleteButton, movieSpan)
+    deleteMovie(deleteButton, movieSpan)
      
 }
     
@@ -122,82 +123,152 @@ function submitNewMovie () {
 
 })           
 }
-// function filterMovies(moviesArray) {
-//     genreSelect.onchange = function(e) {
-//         // console.log('hi')
-//       let  allMovies = document.querySelector("div#list.movies-list")
-//       allMovies.remove()
+function filterMovies(moviesArray) {
+    genreSelect.onchange = function(e) {
+        // console.log('hi')
+      let  allMovies = document.querySelector("div#list.movies-list")
+      allMovies.remove()
         
-//       moviesArray.filter(function(movieObj) {
-//            if (movieObj.genre === genreSelect.value){
-//             //    console.log('hello!')
-//             //    debugger;
-//             let movieSpan = document.createElement('span')
-//             movieSpan.id = movieObj.id
-//             filteredMoviesList.append(movieSpan)
+      moviesArray.filter(function(movieObj) {
+           if (movieObj.genre === genreSelect.value){
+            //    console.log('hello!')
+            //    debugger;
+            let movieSpan = document.createElement('span')
+            movieSpan.id = movieObj.id
+            filteredMoviesList.append(movieSpan)
 
-//             let movieTitle = document.createElement('h1')
-//              movieSpan.append(movieTitle)
-//              movieTitle.innerText = movieObj.title
-//              let movieDirector=document.createElement('p')
-//                 movieSpan.append(movieDirector)
-//                 movieDirector.innerText=movieObj.director
+            let movieTitle = document.createElement('h1')
+             movieSpan.append(movieTitle)
+             movieTitle.innerText = movieObj.title
+             let movieDirector=document.createElement('p')
+                movieSpan.append(movieDirector)
+                movieDirector.innerText=movieObj.director
 
-//                 let movieYear= document.createElement('p')
-//                 movieSpan.append(movieYear)
-//                 movieYear.innerText = movieObj.year 
+                let movieYear= document.createElement('p')
+                movieSpan.append(movieYear)
+                movieYear.innerText = movieObj.year 
                 
-//                 let movieGenre = document.createElement ('p')
-//                 movieSpan.append(movieGenre)
-//                 movieGenre.innerText = movieObj.genre
+                let movieGenre = document.createElement ('p')
+                movieSpan.append(movieGenre)
+                movieGenre.innerText = movieObj.genre
 
-//                 let movieReview = document.createElement('p')
-//                 movieSpan.append(movieReview)
-//                 movieReview.innerText = movieObj.review
+                let movieReview = document.createElement('p')
+                movieSpan.append(movieReview)
+                movieReview.innerText = movieObj.review
                
-//                 let moviePoster = document.createElement('img')
-//                 movieSpan.append(moviePoster)
-//                 moviePoster.src = movieObj.thumbnail
+                let moviePoster = document.createElement('img')
+                movieSpan.append(moviePoster)
+                moviePoster.src = movieObj.thumbnail
 
-//                 let deleteButton = document.createElement('button')
-//                 movieSpan.append(deleteButton)
-//                 deleteButton.innerText = "Delete"
-//                 deleteButton.id = movieObj.id
-//                 deleteFilteredMovie(deleteButton)
-//            }
-//         })
-//     }
-// }
-// function deleteMovie(deleteButton, movieSpan) {
-//     deleteButton.addEventListener('click', (e) => {
-//         fetch(`http://localhost:3000/movies/${e.target.id}`, {
-//   method: "DELETE",
-// })
-//   .then((r) => r.json())
-//   .then((movieObj) => {
-//     if (movieSpan.id === e.target.id) {
-//         movieSpan.remove()
-//     }
-//   }) 
+                // function getVideos (moviesArray,movieObj) {
+                //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=`)
+                //     .then(resp => resp.json())
+                //     .then ((resp)=> {
+                //         let videoId = resp.items[0].id.videoId
+                //         let movieTrailer = document.createElement('iframe')
+                //         movieTrailer.src=`https://www.youtube.com/embed/${videoId}`
+                //         movieSpan.append(movieTrailer)
+                       
+                //     })
+                //     }
+        
+                //     getVideos(moviesArray, movieObj)
+                    
+                    
+                    reFilterMovies(moviesArray,movieObj)     
+                let deleteButton = document.createElement('button')
+                movieSpan.append(deleteButton)
+                deleteButton.innerText = "Delete"
+                deleteButton.id = movieObj.id
+                deleteFilteredMovie(deleteButton)
+           }
+        })
+    }
 
-//     })
-// }
-// function deleteFilteredMovie(deleteButton) {
-//     deleteButton.addEventListener('click',(e) => {
-//         let newSPan = document.querySelector('div#new-list.filtered-movies-list span')
-//         newSPan.remove()
-//     })
-// }
+}
+
+function reFilterMovies(moviesArray,movieObj) {
+    genreSelect.onchange = function(e) {
+        // console.log('hi')
+      let  allMovies = document.querySelector("div#new-list.filtered-movies-list")
+      allMovies.textContent=""
+        
+      moviesArray.filter(function(movieObj) {
+           if (movieObj.genre === genreSelect.value){
+            //    console.log('hello!')
+            //    debugger;
+            let movieSpan = document.createElement('span')
+            movieSpan.id = movieObj.id
+            filteredMoviesList.append(movieSpan)
+
+            let movieTitle = document.createElement('h1')
+             movieSpan.append(movieTitle)
+             movieTitle.innerText = movieObj.title
+             let movieDirector=document.createElement('p')
+                movieSpan.append(movieDirector)
+                movieDirector.innerText=movieObj.director
+
+                let movieYear= document.createElement('p')
+                movieSpan.append(movieYear)
+                movieYear.innerText = movieObj.year 
+                
+                let movieGenre = document.createElement ('p')
+                movieSpan.append(movieGenre)
+                movieGenre.innerText = movieObj.genre
+
+                let movieReview = document.createElement('p')
+                movieSpan.append(movieReview)
+                movieReview.innerText = movieObj.review
+               
+                let moviePoster = document.createElement('img')
+                movieSpan.append(moviePoster)
+                moviePoster.src = movieObj.thumbnail
+
+                // function getVideos (moviesArray,movieObj) {
+                //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=`)
+                //     .then(resp => resp.json())
+                //     .then ((resp)=> {
+                //         let videoId = resp.items[0].id.videoId
+                //         let movieTrailer = document.createElement('iframe')
+                //         movieTrailer.src=`https://www.youtube.com/embed/${videoId}`
+                //         movieSpan.append(movieTrailer)
+                       
+                //     })
+                //     }
+        
+                //     getVideos(moviesArray, movieObj)
+                    
+                       
+                let deleteButton = document.createElement('button')
+                movieSpan.append(deleteButton)
+                deleteButton.innerText = "Delete"
+                deleteButton.id = movieObj.id
+                //deleteFilteredMovie(deleteButton)
+           }
+        })
+    }
+
+}
+
+function deleteMovie(deleteButton, movieSpan) {
+    deleteButton.addEventListener('click', (e) => {
+        fetch(`http://localhost:3000/movies/${e.target.id}`, {
+  method: "DELETE",
+})
+  .then((r) => r.json())
+  .then((movieObj) => {
+    if (movieSpan.id === e.target.id) {
+        movieSpan.remove()
+    }
+  }) 
+
+    })
+}
+function deleteFilteredMovie(deleteButton) {
+    deleteButton.addEventListener('click',(e) => {
+        let newSPan = document.querySelector('div#new-list.filtered-movies-list span')
+        newSPan.remove()
+    })
+}
 
  
-
-// function getVideos(search){
-//     const API_KEY = 
-
-//     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${search}&key=${API_KEY }`)
-//     .then(res => res.json())
-//     .then(videos =>{
-//         videos.items.forEach(video => buildAside(video))
-//         buildVideo(videos.items[0])
-//     })
-// }
