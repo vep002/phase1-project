@@ -63,22 +63,24 @@ function movieDetails(moviesArray, movieObj){
     // movieSpan.append(movieTrailer)
     // movieTrailer.src = element.preview
 
-    // let movieRating = document.createElement('p')
-    // movieSpan.append(movieRating)
-    // movieRating.innerText = element.rating 
+    let movieRating = document.createElement('p')
+    movieSpan.append(movieRating)
+    movieRating.innerText = movieObj.rating 
 
     let movieReview = document.createElement('p')
     movieSpan.append(movieReview)
     movieReview.innerText = `Review: ${movieObj.review}`
 
-    let ratingInputForm = document.createElement("input");
-    ratingInputForm.setAttribute("type", "text")
-    // let ratingInputFormLabel = document.createElement('label')
-    // ratingInputFormLabel.type = 'text'
-    // ratingInputFormLabel.innerText = 'rating'
-    movieReview.appendChild(ratingInputForm)
-    // ratingInputForm.append(ratingInputFormLabel)
-    // debugger
+
+    let ratingInputForm = document.createElement('form')
+    ratingInputForm.setAttribute("type", "text");
+    let ratingInputFormLabel = document.createElement("Label");
+    ratingInputFormLabel.setAttribute("for",ratingInputForm);
+    ratingInputFormLabel.innerHTML = `Rate ${movieObj.title} : `;
+    movieSpan.appendChild(ratingInputFormLabel);
+    
+    movieSpan.append(ratingInputForm)
+    
    
 
     let deleteButton = document.createElement('button')
@@ -86,6 +88,8 @@ function movieDetails(moviesArray, movieObj){
     deleteButton.innerText = "Delete"
     deleteButton.id = movieObj.id
     deleteMovie(deleteButton)
+
+    filterMovies(moviesArray)
 }
     
 //User can create a movie:
@@ -116,9 +120,8 @@ function submitNewMovie () {
     }) 
         .then((r) => r.json())
         .then((movieObj) => movieDetails(movieObj))
-        debugger;
 
-})           
+    })           
 }
 function filterMovies(moviesArray) {
     genreSelect.onchange = function(e) {
@@ -181,8 +184,4 @@ function deleteFilteredMovie(deleteButton) {
         let newSPan = document.querySelector('div#new-list.filtered-movies-list span')
         newSPan.remove()
     })
-}
-
-function rateMovie(){
-
 }
