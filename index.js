@@ -180,7 +180,7 @@ function deleteFilteredMovie(deleteButton) {
 
  
 function getVideos () {
-fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=honey+badger&key=AIzaSyCzx-q6vR_ioYRkaHPmcQjWFNsEEFxfXx4`)
+fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=honey+badger&key=`)
 .then(resp => resp.json())
 .then ((resp)=> {
     // console.log(resp)
