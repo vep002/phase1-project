@@ -30,12 +30,13 @@ function getMovies() {
 //function unpacks movies from database
 function displayMovies (moviesArray) {
     moviesArray.forEach((movieObj) => {
-    movieDetails(moviesArray, movieObj)})  
+    movieDetails(moviesArray, movieObj)}) 
 }
 
 //displays movieObjects on the DOM
 function movieDetails(moviesArray, movieObj){
     let movieSpan = document.createElement('span')
+    movieSpan.id = movieObj.id
     moviesList.append(movieSpan)
     //create elements for each movie detail
     let movieTitle = document.createElement('h1')
@@ -75,7 +76,8 @@ function movieDetails(moviesArray, movieObj){
     movieSpan.append(deleteButton)
     deleteButton.innerText = "Delete"
     deleteButton.id = movieObj.id
-    deleteMovie(deleteButton)
+    deleteMovie(deleteButton, movieSpan)
+     
 }
     
 //User can create a movie:
@@ -106,7 +108,6 @@ function submitNewMovie () {
     }) 
         .then((r) => r.json())
         .then((movieObj) => movieDetails(movieObj))
-        debugger;
 
 })           
 }
@@ -156,13 +157,17 @@ function filterMovies(moviesArray) {
         })
     }
 }
-function deleteMovie(deleteButton) {
+function deleteMovie(deleteButton, movieSpan) {
     deleteButton.addEventListener('click', (e) => {
         fetch(`http://localhost:3000/movies/${e.target.id}`, {
   method: "DELETE",
 })
   .then((r) => r.json())
-  
+  .then((movieObj) => {
+    if (movieSpan.id === e.target.id) {
+        movieSpan.remove()
+    }
+  }) 
 
     })
 }
@@ -173,47 +178,31 @@ function deleteFilteredMovie(deleteButton) {
     })
 }
 
-
-
-
-// debugger
-                // //create a span element for each movie, which is appended to the overall movie div
-                // let newMovieSpan = document.createElement('span')
-                // moviesList.append(newMovieSpan)
-            
-                // //create elements for each movie detail
-                // let newMovieTitle = document.createElement('h1')
-                // newMovieSpan.append(newMovieTitle)
-                // newMovieTitle.innerText = element.title
-                
-            
-                // let newMovieDirector=document.createElement('p')
-                // newMovieSpan.append(newMovieDirector)
-                // newMovieDirector.innerText= `Director: ${element.director}`
-            
-                // let newMovieYear= document.createElement('p')
-                // newMovieSpan.append(newMovieYear)
-                // newMovieYear.innerText = `Year Released: ${element.year}` 
-                
-                // let newMovieGenre = document.createElement ('p')
-                // newMovieSpan.append(newMovieGenre)
-                // newMovieGenre.innerText = `Genre: ${element.genre}` 
-            
-                // // let newMoviePoster = document.createElement('img')
-                // // newMovieSpan.append(newMoviePoster)
-                // // newMoviePoster.src = element.thumbnail
-            
-                // // let newMovieTrailer = document.createElement('iframe')
-                // // newMovieSpan.append(newMovieTrailer)
-                // // newMovieTrailer.src = element.preview
-            
-                // // let newMovieRating = document.createElement('p')
-                // // newMovieSpan.append(newMovieRating)
-                // // newMovieRating.innerText = element.rating 
-            
-                // let newMovieReview = document.createElement('p')
-                // newMovieSpan.append(newMovieReview)
-                // newMovieReview.innerText = `Review: ${element.review}`;
-//         })
-//     })
  
+function getVideos () {
+fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=honey+badger&key=AIzaSyCzx-q6vR_ioYRkaHPmcQjWFNsEEFxfXx4`)
+.then(resp => resp.json())
+.then ((resp)=> {
+    // console.log(resp)
+    // debugger
+   let videoId = resp.items[0].id.videoId
+   let iframe = document.createElement('iframe')
+   iframe.src=`https://www.youtube.com/embed/${videoId}`
+   moviesList.append(iframe)
+    // let example = document.createElement('iframe')
+    // example.src = 
+    // moviesList.append(example)
+})
+}
+getVideos()
+
+// function getVideos(search){
+//     const API_KEY = 
+
+//     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${search}&key=${API_KEY }`)
+//     .then(res => res.json())
+//     .then(videos =>{
+//         videos.items.forEach(video => buildAside(video))
+//         buildVideo(videos.items[0])
+//     })
+// }
