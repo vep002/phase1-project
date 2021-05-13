@@ -36,6 +36,7 @@ function displayMovies (moviesArray) {
 //displays movieObjects on the DOM
 function movieDetails(moviesArray, movieObj){
     let movieSpan = document.createElement('span')
+    movieSpan.id = movieObj.id
     moviesList.append(movieSpan)
     //create elements for each movie detail
     let movieTitle = document.createElement('h1')
@@ -63,31 +64,27 @@ function movieDetails(moviesArray, movieObj){
     // movieSpan.append(movieTrailer)
     // movieTrailer.src = element.preview
 
-    let movieRating = document.createElement('p')
-    movieSpan.append(movieRating)
-    movieRating.innerText = movieObj.rating 
 
     let movieReview = document.createElement('p')
     movieSpan.append(movieReview)
     movieReview.innerText = `Review: ${movieObj.review}`
 
 
-    let ratingInputForm = document.createElement('form')
-    ratingInputForm.setAttribute("type", "text");
-    let ratingInputFormLabel = document.createElement("Label");
-    ratingInputFormLabel.setAttribute("for",ratingInputForm);
-    ratingInputFormLabel.innerHTML = `Rate ${movieObj.title} : `;
-    movieSpan.appendChild(ratingInputFormLabel);
-    
-    movieSpan.append(ratingInputForm)
-    
+    let movieRatingForm = document.createElement("form");
+    movieSpan.append(movieRatingForm)
+    let movieRatingInput = document.createElement('input')
+    movieRatingForm.append(movieRatingInput)
+    movieRatingInput.setAttribute("type", "text");
+    movieRatingInput.setAttribute("name", "rating");
+    movieRatingInput.setAttribute("placeholder", "rating out of 10");
+    movieSpan.append(movieRatingForm)
+  
    
-
     let deleteButton = document.createElement('button')
     movieSpan.append(deleteButton)
     deleteButton.innerText = "Delete"
     deleteButton.id = movieObj.id
-    deleteMovie(deleteButton)
+    deleteMovie(deleteButton, movieSpan)
 
     filterMovies(moviesArray)
 }
@@ -131,8 +128,6 @@ function filterMovies(moviesArray) {
         
       moviesArray.filter(function(movieObj) {
            if (movieObj.genre === genreSelect.value){
-            //    console.log('hello!')
-            //    debugger;
             let movieSpan = document.createElement('span')
             movieSpan.id = movieObj.id
             filteredMoviesList.append(movieSpan)
@@ -169,14 +164,18 @@ function filterMovies(moviesArray) {
         })
     }
 }
-function deleteMovie(deleteButton) {
+function deleteMovie(deleteButton, movieSpan) {
     deleteButton.addEventListener('click', (e) => {
         fetch(`http://localhost:3000/movies/${e.target.id}`, {
   method: "DELETE",
 })
   .then((r) => r.json())
-  
+  .then((movieObj) => {
+    if (movieObj.id === movieSpan.id){
+        movieSpan.remove()
+    }
 
+  })
     })
 }
 function deleteFilteredMovie(deleteButton) {
@@ -184,4 +183,26 @@ function deleteFilteredMovie(deleteButton) {
         let newSPan = document.querySelector('div#new-list.filtered-movies-list span')
         newSPan.remove()
     })
+}
+
+function rateMovie(movieRatingForm) {
+    movieRatingForm.addEventListener("submit", (e) => {
+        debugger
+        let newRating = movieRatingForm.value
+        fetch(`http://localhost:3000/movies/${e.target.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          rating: rating.push(newRating)
+      }),
+      
+    }) 
+        .then((r) => r.json())
+        .then((movieObj) => movieDetails(movieObj))
+        movieRatingForm.reset()
+    })           
+
+    
 }
