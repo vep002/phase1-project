@@ -60,6 +60,10 @@ function movieDetails(moviesArray, movieObj){
     movieSpan.append(moviePoster)
     moviePoster.src = movieObj.thumbnail
 
+    // let movieTrailer = document.createElement('iframe')
+    // movieSpan.append(movieTrailer)
+    // movieTrailer.src = element.preview
+
     function getVideos (movieObj) {
         fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=raising+arizona&key=`)
         .then(resp => resp.json())
@@ -189,8 +193,6 @@ function submitNewMovie () {
 // }
 
  
-
-
 
 // function getVideos(search){
 //     const API_KEY = 
