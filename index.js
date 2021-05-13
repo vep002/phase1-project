@@ -17,6 +17,7 @@ let movieForm = document.querySelector('form')
 ////////GLOBAL FUNCTION CALLS
 getMovies()
 submitNewMovie()
+
 //////////////
 
 
@@ -31,6 +32,7 @@ function getMovies() {
 function displayMovies (moviesArray) {
     moviesArray.forEach((movieObj) => {
     movieDetails(moviesArray, movieObj)}) 
+
 }
 
 //displays movieObjects on the DOM
@@ -60,12 +62,9 @@ function movieDetails(moviesArray, movieObj){
     movieSpan.append(moviePoster)
     moviePoster.src = movieObj.thumbnail
 
-    // let movieTrailer = document.createElement('iframe')
-    // movieSpan.append(movieTrailer)
-    // movieTrailer.src = element.preview
 
-    function getVideos (movieObj) {
-        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=raising+arizona&key=`)
+    function getVideos (moviesArray,movieObj) {
+        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=AIzaSyCzx-q6vR_ioYRkaHPmcQjWFNsEEFxfXx4`)
         .then(resp => resp.json())
         .then ((resp)=> {
             let videoId = resp.items[0].id.videoId
@@ -77,14 +76,12 @@ function movieDetails(moviesArray, movieObj){
             // moviesList.append(example)
         })
         }
-        getVideos()
+        getVideos(moviesArray, movieObj)
+    
     // let movieRating = document.createElement('p')
     // movieSpan.append(movieRating)
     // movieRating.innerText = element.rating 
 
-    let movieReview = document.createElement('p')
-    movieSpan.append(movieReview)
-    movieReview.innerText = `Review: ${movieObj.review}`
 
     let deleteButton = document.createElement('button')
     movieSpan.append(deleteButton)
