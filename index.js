@@ -52,16 +52,45 @@ function movieDetails(moviesArray, movieObj){
 
     let movieYear= document.createElement('p')
     movieSpan.append(movieYear)
-    movieYear.innerText = movieObj.year 
+    movieYear.innerText = `Year: ${movieObj.year}` 
     
     let movieGenre = document.createElement ('p')
     movieSpan.append(movieGenre)
-    movieGenre.innerText = movieObj.genre
+    movieGenre.innerText = `Genre: ${movieObj.genre}`
     filterMovies(moviesArray)
 
-    let moviePoster = document.createElement('img')
-    movieSpan.append(moviePoster)
-    moviePoster.src = movieObj.thumbnail
+    // let moviePoster = document.createElement('img')
+    // movieSpan.append(moviePoster)
+    // moviePoster.src = movieObj.thumbnail
+
+    function getMedia (moviesArray,movieObj) {
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
+        .then (resp => resp.json())
+        .then ((resp) => {
+            let poster = resp.results[0].poster_path
+            let moviePoster = document.createElement('img')
+            moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
+            movieSpan.append(moviePoster)
+            fetch(`
+            https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
+            .then(response => response.json())
+            .then ((response) => {
+    
+                let videoKey = response.results[0].key
+                let movieTrailer = document.createElement('iframe')
+            movieTrailer.src=`https://www.youtube.com/embed/${videoKey}`
+            movieSpan.append(movieTrailer)
+            })
+        })    
+    }
+        
+
+
+    getMedia(moviesArray,movieObj)
+
+    // let movieTrailer = document.createElement('iframe')
+    // movieTrailer.src= 'https://www.youtube.com/embed/4r7wHMg5Yjg&t=5s'
+    // movieSpan.append(movieTrailer)
 
     // function getVideos (moviesArray, movieObj) {
     //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=AIzaSyCzx-q6vR_ioYRkaHPmcQjWFNsEEFxfXx4`)
@@ -81,7 +110,8 @@ function movieDetails(moviesArray, movieObj){
     
     let movieRating = document.createElement('p')
     movieSpan.append(movieRating)
-    movieRating.innerText = movieObj.rating 
+    movieRating.innerText = `Review: ${movieObj.review}`
+  
 
 
     let deleteButton = document.createElement('button')
@@ -96,6 +126,7 @@ function movieDetails(moviesArray, movieObj){
 function submitNewMovie () {
   
     movieForm.addEventListener('submit', (e) => {
+        e.preventDefault()
         let newDirector = formDirector.value 
         let newTitle = formTitle.value  
         let newYear = formYear.value
@@ -142,23 +173,46 @@ function filterMovies(moviesArray) {
              movieTitle.innerText = movieObj.title
              let movieDirector=document.createElement('p')
                 movieSpan.append(movieDirector)
-                movieDirector.innerText=movieObj.director
+                movieDirector.innerText= `Director: ${movieObj.director}`
 
                 let movieYear= document.createElement('p')
                 movieSpan.append(movieYear)
-                movieYear.innerText = movieObj.year 
+                movieYear.innerText = `Year: ${movieObj.year}` 
                 
                 let movieGenre = document.createElement ('p')
                 movieSpan.append(movieGenre)
-                movieGenre.innerText = movieObj.genre
+                movieGenre.innerText = `Genre: ${movieObj.genre}`
+               
 
                 let movieReview = document.createElement('p')
                 movieSpan.append(movieReview)
-                movieReview.innerText = movieObj.review
-               
-                let moviePoster = document.createElement('img')
-                movieSpan.append(moviePoster)
-                moviePoster.src = movieObj.thumbnail
+                movieReview.innerText = `Review: ${movieObj.review}`
+
+             
+                function getMedia (moviesArray,movieObj) {
+                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
+                    .then (resp => resp.json())
+                    .then ((resp) => {
+                        let poster = resp.results[0].poster_path
+                        let moviePoster = document.createElement('img')
+                        moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
+                        movieSpan.append(moviePoster)
+                        fetch(`
+                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
+                        .then(response => response.json())
+                        .then ((response) => {
+                
+                            let videoKey = response.results[0].key
+                            let movieTrailer = document.createElement('iframe')
+                        movieTrailer.src=`https://www.youtube.com/embed/${videoKey}`
+                        movieSpan.append(movieTrailer)
+                        })
+                    })    
+                }
+                    
+            
+            
+                getMedia(moviesArray,movieObj)
 
                 // function getVideos (moviesArray,movieObj) {
                 //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=`)
@@ -206,23 +260,46 @@ function reFilterMovies(moviesArray,movieObj) {
              movieTitle.innerText = movieObj.title
              let movieDirector=document.createElement('p')
                 movieSpan.append(movieDirector)
-                movieDirector.innerText=movieObj.director
+                movieDirector.innerText= `Director: ${movieObj.director}`
 
                 let movieYear= document.createElement('p')
                 movieSpan.append(movieYear)
-                movieYear.innerText = movieObj.year 
+                movieYear.innerText = `Year: ${movieObj.year}` 
                 
                 let movieGenre = document.createElement ('p')
                 movieSpan.append(movieGenre)
-                movieGenre.innerText = movieObj.genre
+                movieGenre.innerText = `Genre: ${movieObj.genre}`
+  
 
                 let movieReview = document.createElement('p')
                 movieSpan.append(movieReview)
-                movieReview.innerText = movieObj.review
-               
-                let moviePoster = document.createElement('img')
-                movieSpan.append(moviePoster)
-                moviePoster.src = movieObj.thumbnail
+                movieReview.innerText = `Review: ${movieObj.review}`
+
+
+                function getMedia (moviesArray,movieObj) {
+                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
+                    .then (resp => resp.json())
+                    .then ((resp) => {
+                        let poster = resp.results[0].poster_path
+                        let moviePoster = document.createElement('img')
+                        moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
+                        movieSpan.append(moviePoster)
+                        fetch(`
+                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
+                        .then(response => response.json())
+                        .then ((response) => {
+                
+                            let videoKey = response.results[0].key
+                            let movieTrailer = document.createElement('iframe')
+                        movieTrailer.src=`https://www.youtube.com/embed/${videoKey}`
+                        movieSpan.append(movieTrailer)
+                        })
+                    })    
+                }
+                    
+            
+            
+                getMedia(moviesArray,movieObj)
 
                 // function getVideos (moviesArray,movieObj) {
                 //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=`)
@@ -243,7 +320,7 @@ function reFilterMovies(moviesArray,movieObj) {
                 movieSpan.append(deleteButton)
                 deleteButton.innerText = "Delete"
                 deleteButton.id = movieObj.id
-                //deleteFilteredMovie(deleteButton)
+                deleteFilteredMovie(deleteButton)
            }
         })
     }

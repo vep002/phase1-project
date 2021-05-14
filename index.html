@@ -7,11 +7,25 @@
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
+  <div>
+  <header>Rotten Cabbages</header>
+    <div id="dropdown">
+    <label>Search by genre:</label>
+    <select id="genre">
+      <option class="genre1" value="horror"> horror </option>
+      <option class="genre2" value="drama"> drama </option>
+      <option class="genre3" value="action"> action </option>
+      <option class="genre4" value="comedy"> comedy </option>
+    </select>
+    </div>
+  </div>
     <div class='movies-list' id='list'></div>
     <div class='filtered-movies-list' id='new-list'></div>
 
     <form>
+        <label for='form'>Submit a New Movie</label>
         <label for=“title”>Title:</label> 
         <input type="text" id=title name=“title”>
         <label for=“director”>Director:</label>
@@ -22,20 +36,12 @@
         <input type='text' id=genre name="genre">
         <label for="review">Review:</label>
         <input type='text' id=review name="review">
-        <input type="submit">
+        <input type="submit" id=submit>
       </form>
 
 
 
-        <div id="dropdown">
-          <label>Search by genre:</label>
-          <select id="genre">
-            <option class="genre1" value="horror"> horror </option>
-            <option class="genre2" value="drama"> drama </option>
-            <option class="genre3" value="action"> action </option>
-            <option class="genre4" value="comedy"> comedy </option>
-          </select>
-        </div>
+      
 
       </div>  
 </body>
