@@ -64,7 +64,7 @@ function movieDetails(moviesArray, movieObj){
     // moviePoster.src = movieObj.thumbnail
 
     function getMedia (moviesArray,movieObj) {
-        fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=`)
         .then (resp => resp.json())
         .then ((resp) => {
             let poster = resp.results[0].poster_path
@@ -72,7 +72,7 @@ function movieDetails(moviesArray, movieObj){
             moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
             movieSpan.append(moviePoster)
             fetch(`
-            https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
+            https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=&language=en-US`)
             .then(response => response.json())
             .then ((response) => {
     
@@ -190,7 +190,7 @@ function filterMovies(moviesArray) {
 
              
                 function getMedia (moviesArray,movieObj) {
-                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
+                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=`)
                     .then (resp => resp.json())
                     .then ((resp) => {
                         let poster = resp.results[0].poster_path
@@ -198,7 +198,7 @@ function filterMovies(moviesArray) {
                         moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
                         movieSpan.append(moviePoster)
                         fetch(`
-                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
+                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=&language=en-US`)
                         .then(response => response.json())
                         .then ((response) => {
                 
@@ -277,7 +277,7 @@ function reFilterMovies(moviesArray,movieObj) {
 
 
                 function getMedia (moviesArray,movieObj) {
-                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
+                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=`)
                     .then (resp => resp.json())
                     .then ((resp) => {
                         let poster = resp.results[0].poster_path
@@ -285,7 +285,7 @@ function reFilterMovies(moviesArray,movieObj) {
                         moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
                         movieSpan.append(moviePoster)
                         fetch(`
-                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
+                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=&language=en-US`)
                         .then(response => response.json())
                         .then ((response) => {
                 
