@@ -2,6 +2,8 @@
 
 This app displays movies saved in a JSON server database. Users can search movies by genre and delete a movie if they want. Users can also use a form on the site to add a movie, which will appear on the frontend, including the movie's poster and trailer. All changes are persisted to the backend.
 
+![Alt text](/Users/victoriaperkins/Development/code/Mod6/vep002.github.io/Screen Shot 2021-09-20 at 10.02.20 AM.png)
+
 Live demo coming soon
 
 ## How to run locally:
