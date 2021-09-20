@@ -4,7 +4,7 @@ This app displays movies saved in a JSON server database. Users can search movie
 
 ![Alt text](https://github.com/vep002/vep002.github.io/blob/master/Screen%20Shot%202021-09-20%20at%2010.02.20%20AM.png)
 
-JSON server repo: https://github.com/vep002/phase-1-json-server-project-guidelines/blob/main/db/db.json
+JSON server repo: https://github.com/vep002/phase-1-json-server-project-guidelines
 
 Live demo coming soon
 
