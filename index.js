@@ -1,4 +1,4 @@
-//GLOBAL STUFF
+//GLOBAL VARIABLES
 let moviesList = document.querySelector('div#list')
 let movieForm = document.querySelector('form')
     let formTitle = movieForm.querySelector('input#title')
@@ -57,25 +57,26 @@ function movieDetails(moviesArray, movieObj){
     let movieGenre = document.createElement ('p')
     movieSpan.append(movieGenre)
     movieGenre.innerText = `Genre: ${movieObj.genre}`
-    filterMovies(moviesArray)
 
-    // let moviePoster = document.createElement('img')
-    // movieSpan.append(moviePoster)
-    // moviePoster.src = movieObj.thumbnail
+   
 
+    // Fetch the media (poster and trailer) from a thrid party API
     function getMedia (moviesArray,movieObj) {
-        fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=`)
+        // 1. use the movie's title (moveObj.title) and api key to get a response from the api
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
         .then (resp => resp.json())
+        // 2. take the response from the backend and create a poster element, which is then appended to the DOM
         .then ((resp) => {
             let poster = resp.results[0].poster_path
             let moviePoster = document.createElement('img')
             moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
             movieSpan.append(moviePoster)
+            // 3. make another fetch request to the api, this time using the id which is pulled from the first response. this is necessary because in order to find a movie's trailer in the api, we need a unique movie id. the unique movie id can be found within the general information about the movie we got from the first fetch request. this makes it so that when a new movie is added by the user, they do not have to kn ow the movie's id in order to add it to the site.
             fetch(`
-            https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=&language=en-US`)
+            https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
             .then(response => response.json())
+            // 4. take the response from the backend and create a trailer element, which is appended to the DOM
             .then ((response) => {
-    
                 let videoKey = response.results[0].key
                 let movieTrailer = document.createElement('iframe')
             movieTrailer.src=`https://www.youtube.com/embed/${videoKey}`
@@ -83,37 +84,10 @@ function movieDetails(moviesArray, movieObj){
             })
         })    
     }
-        
-
 
     getMedia(moviesArray,movieObj)
-
-    // let movieTrailer = document.createElement('iframe')
-    // movieTrailer.src= 'https://www.youtube.com/embed/4r7wHMg5Yjg&t=5s'
-    // movieSpan.append(movieTrailer)
-
-    // function getVideos (moviesArray, movieObj) {
-    //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=AIzaSyCzx-q6vR_ioYRkaHPmcQjWFNsEEFxfXx4`)
-    //     .then(resp => resp.json())
-    //     .then ((resp)=> {
+    filterMovies(moviesArray)
             
-    //         let videoId = resp.items[0].id.videoId
-            
-    //         let movieTrailer = document.createElement('iframe')
-    //         movieTrailer.src=`https://www.youtube.com/embed/${videoId}`
-    //         movieSpan.append(movieTrailer)
-           
-    //     })
-    //     }
-    
-        // getVideos(moviesArray, movieObj)
-    
-    let movieRating = document.createElement('p')
-    movieSpan.append(movieRating)
-    movieRating.innerText = `Review: ${movieObj.review}`
-  
-
-
     let deleteButton = document.createElement('button')
     movieSpan.append(deleteButton)
     deleteButton.innerText = "Delete"
@@ -132,7 +106,6 @@ function submitNewMovie () {
         let newYear = formYear.value
         let newGenre = formGenre.value 
         let newReview = formReview.value
-        // let newPoster = formPoster.value 
     //persist to back end
         fetch('http://localhost:3000/movies', {
       method: "POST",
@@ -145,7 +118,6 @@ function submitNewMovie () {
           year: newYear,
           genre: newGenre,
           review: newReview,
-        //   thumbnail: newPoster
       }),
       
     }) 
@@ -154,12 +126,16 @@ function submitNewMovie () {
 
 })           
 }
+
+// User can filter movies by genre:
 function filterMovies(moviesArray) {
+    //1. when the genreselect element is changed, all movies are removed from the DOM
     genreSelect.onchange = function(e) {
         // console.log('hi')
       let  allMovies = document.querySelector("div#list.movies-list")
       allMovies.remove()
-        
+      
+      //2. the moviesArray is filtered, if the genre of the movie matches the genre selected, then that movie is added to the DOM
       moviesArray.filter(function(movieObj) {
            if (movieObj.genre === genreSelect.value){
             //    console.log('hello!')
@@ -188,9 +164,8 @@ function filterMovies(moviesArray) {
                 movieSpan.append(movieReview)
                 movieReview.innerText = `Review: ${movieObj.review}`
 
-             
                 function getMedia (moviesArray,movieObj) {
-                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=`)
+                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
                     .then (resp => resp.json())
                     .then ((resp) => {
                         let poster = resp.results[0].poster_path
@@ -198,7 +173,7 @@ function filterMovies(moviesArray) {
                         moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
                         movieSpan.append(moviePoster)
                         fetch(`
-                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=&language=en-US`)
+                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
                         .then(response => response.json())
                         .then ((response) => {
                 
@@ -210,26 +185,9 @@ function filterMovies(moviesArray) {
                     })    
                 }
                     
-            
-            
                 getMedia(moviesArray,movieObj)
+                reFilterMovies(moviesArray,movieObj)  
 
-                // function getVideos (moviesArray,movieObj) {
-                //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=`)
-                //     .then(resp => resp.json())
-                //     .then ((resp)=> {
-                //         let videoId = resp.items[0].id.videoId
-                //         let movieTrailer = document.createElement('iframe')
-                //         movieTrailer.src=`https://www.youtube.com/embed/${videoId}`
-                //         movieSpan.append(movieTrailer)
-                       
-                //     })
-                //     }
-        
-                //     getVideos(moviesArray, movieObj)
-                    
-                    
-                    reFilterMovies(moviesArray,movieObj)     
                 let deleteButton = document.createElement('button')
                 movieSpan.append(deleteButton)
                 deleteButton.innerText = "Delete"
@@ -241,13 +199,16 @@ function filterMovies(moviesArray) {
 
 }
 
+//User can refilter after a previous filter without refreshing the page
 function reFilterMovies(moviesArray,movieObj) {
     genreSelect.onchange = function(e) {
         // console.log('hi')
+        //1. th3e list of movies is a separate div element, which is now selected, then set to blank
       let  allMovies = document.querySelector("div#new-list.filtered-movies-list")
       allMovies.textContent=""
         
       moviesArray.filter(function(movieObj) {
+          //2. the moviesArray is filtered, if the genre of the movie matches the genre selected, then that movie is added to the DOM
            if (movieObj.genre === genreSelect.value){
             //    console.log('hello!')
             //    debugger;
@@ -277,7 +238,7 @@ function reFilterMovies(moviesArray,movieObj) {
 
 
                 function getMedia (moviesArray,movieObj) {
-                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=`)
+                    fetch(`https://api.themoviedb.org/3/search/movie?query=${movieObj.title}&api_key=9dc69d9c934ecf7b240cbdd0a32017d7`)
                     .then (resp => resp.json())
                     .then ((resp) => {
                         let poster = resp.results[0].poster_path
@@ -285,7 +246,7 @@ function reFilterMovies(moviesArray,movieObj) {
                         moviePoster.src = `https://www.themoviedb.org/t/p/original${poster}`
                         movieSpan.append(moviePoster)
                         fetch(`
-                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=&language=en-US`)
+                        https://api.themoviedb.org/3/movie/${resp.results[0].id}/videos?api_key=9dc69d9c934ecf7b240cbdd0a32017d7&language=en-US`)
                         .then(response => response.json())
                         .then ((response) => {
                 
@@ -297,25 +258,8 @@ function reFilterMovies(moviesArray,movieObj) {
                     })    
                 }
                     
-            
-            
                 getMedia(moviesArray,movieObj)
 
-                // function getVideos (moviesArray,movieObj) {
-                //     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${movieObj.search}&relevanceLanguage=en&safeSearch=moderate&key=`)
-                //     .then(resp => resp.json())
-                //     .then ((resp)=> {
-                //         let videoId = resp.items[0].id.videoId
-                //         let movieTrailer = document.createElement('iframe')
-                //         movieTrailer.src=`https://www.youtube.com/embed/${videoId}`
-                //         movieSpan.append(movieTrailer)
-                       
-                //     })
-                //     }
-        
-                //     getVideos(moviesArray, movieObj)
-                    
-                       
                 let deleteButton = document.createElement('button')
                 movieSpan.append(deleteButton)
                 deleteButton.innerText = "Delete"
