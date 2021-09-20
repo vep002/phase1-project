@@ -4,13 +4,14 @@ This app displays movies saved in a JSON server database. Users can search movie
 
 ![Alt text](https://github.com/vep002/vep002.github.io/blob/master/Screen%20Shot%202021-09-20%20at%2010.02.20%20AM.png)
 
+JSON server repo: https://github.com/vep002/phase-1-json-server-project-guidelines/blob/main/db/db.json
+
 Live demo coming soon
 
 ## How to run locally:
 
+- git clone the JSON server
+- run `npm install` to install dependencies
+- run `npm start` to start the JSON server
 - git clone this repository
-- cd into the backend folder, then cd into "phase-1-json-server-project-guidelines"
-- run npm install
-- run npm start to start the JSON server
-- cd into the frontend folder
 - run `open index.html`
