@@ -6,7 +6,7 @@ This app displays movies saved in a JSON server database. Users can search movie
 
 JSON server repo: https://github.com/vep002/phase-1-json-server-project-guidelines
 
-Live demo coming soon
+Live demo: https://res.cloudinary.com/dz2jdgus7/video/upload/v1633458292/rotten_cabbages_demo_qatelh.mp4
 
 ## How to run locally:
 
